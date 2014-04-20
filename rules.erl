@@ -19,7 +19,8 @@
 diff(A, B, elm) ->
   case elm of
     x -> element(1, A) - element(1, B);
-    y -> element(2, A) - element(2, B)
+    y -> element(2, A) - element(2, B);
+    xy -> {diff(A, B, x), diff(A, B, y)}
   end.
 
 safe_divide(A, B) when B == 0 -> % vertical case
@@ -29,8 +30,7 @@ safe_divide(A, B) ->
   A / B.
 
 slope(A, B) ->
-  X = diff(A, B, x),
-  Y = diff(A, B, y),
+  {X, Y} = diff(A, B, xy),
   safe_divide(X, Y).
 
 line_formula(A, B) ->
@@ -45,16 +45,15 @@ line_formula(A, B) ->
 % {Type, Func} = line_formula(5,5)
 
 diff_points(A, B) ->
-  X = diff(A, B, x),
-  Y = diff(A, B, y),
-  safe_divide({X, abs(X)}, {Y, abs(Y)}).
+  {X, Y} = diff(A, B, xy),
+  {safe_divide(X, abs(X)),
+    safe_divide(Y, abs(Y))}.
 
 in_range(N, Min, Max) when is_integer(N) ->
   (N >= Min) and (N < Max);
 
 in_range(A, Min, Max) ->
-  X = element(1, A),
-  Y = element(2, A),
+  {X, Y} = A,
   H = in_range(X, Min, Max),
   T = in_range(Y, Min, Max),
   H and T.
@@ -62,3 +61,9 @@ in_range(A, Min, Max) ->
 in_range(A) ->
   MinMax = #minmax{},
   in_range(A, MinMax#minmax.min, MinMax#minmax.max).
+
+en_point_check(DiffY) ->
+  case DiffY == -1 of
+    true -> fun(Move, End) -> Move =< End end;
+    false -> fun(Move, End) -> Move >= End end
+  end.
