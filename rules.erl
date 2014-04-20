@@ -10,7 +10,7 @@
 -author("foobar").
 
 %% API
--export([safe_divide/2, slope/2]).
+-export([safe_divide/2, slope/2, line_formula/2]).
 
 safe_divide(A, B) when B == 0 -> % vertical case
   -999;
@@ -26,10 +26,14 @@ slope(A, B) ->
 line_formula(A, B) ->
   Slope = slope(A, B),
   Func = case Slope == -999 of
-    true -> fun(X, Y) -> X rem Y end;
-    false -> fun(X, Y) -> X rem Y end
-  end,
-  Func.
+           true -> {vertical, fun(StartX) ->
+             StartX == element(1, B) end};
+           false -> {horizontal, fun(X, Y) ->
+             Y - element(2, B) == Slope * (X - element(1, B)) end}
+         end,
+  {Slope, Func}.
+
+% {X,Y,Z} = line_formula(5,5)
 
 diff_points(A, B) ->
   X = element(0, A) - element(0, B),
