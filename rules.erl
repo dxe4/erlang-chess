@@ -35,11 +35,12 @@ slope(A, B) ->
 
 line_formula(A, B) ->
   Slope = slope(A, B),
+  {B_X, B_Y} = B,
   case Slope == -999 of
     true -> {vertical, fun(StartX) ->
       StartX == element(1, B) end};
     false -> {horizontal, fun(X, Y) ->
-      Y - element(2, B) == Slope * (X - element(1, B)) end}
+      Y - B_Y == Slope * (X -B_X) end}
   end.
 
 % {Type, Func} = line_formula(5,5)
