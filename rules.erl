@@ -16,6 +16,12 @@
 ]).
 -record(minmax, {min = 0, max = 8}).
 
+diff(A, B, elm) ->
+  case elm of
+    x -> element(1, A) - element(1, B);
+    y -> element(2, A) - element(2, B)
+  end.
+
 safe_divide(A, B) when B == 0 -> % vertical case
   -999;
 
@@ -23,8 +29,8 @@ safe_divide(A, B) ->
   A / B.
 
 slope(A, B) ->
-  X = element(1, A) - element(1, B),
-  Y = element(2, A) - element(2, B),
+  X = diff(A, B, x),
+  Y = diff(A, B, y),
   safe_divide(X, Y).
 
 line_formula(A, B) ->
@@ -39,8 +45,8 @@ line_formula(A, B) ->
 % {Type, Func} = line_formula(5,5)
 
 diff_points(A, B) ->
-  X = element(1, A) - element(1, B),
-  Y = element(2, A) - element(2, B),
+  X = diff(A, B, x),
+  Y = diff(A, B, y),
   safe_divide({X, abs(X)}, {Y, abs(Y)}).
 
 in_range(N, Min, Max) when is_integer(N) ->
@@ -49,8 +55,8 @@ in_range(N, Min, Max) when is_integer(N) ->
 in_range(A, Min, Max) ->
   X = element(1, A),
   Y = element(2, A),
-  H=in_range(X, Min, Max),
-  T=in_range(Y, Min, Max),
+  H = in_range(X, Min, Max),
+  T = in_range(Y, Min, Max),
   H and T.
 
 in_range(A) ->
