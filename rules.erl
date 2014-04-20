@@ -15,6 +15,7 @@
   in_range/3, in_range/1
 ]).
 -record(minmax, {min = 0, max = 8}).
+-define(MinMax, #minmax{}).
 
 diff(A, B, elm) ->
   case elm of
@@ -60,8 +61,7 @@ in_range(A, Min, Max) ->
   H and T.
 
 in_range(A) ->
-  MinMax = #minmax{},
-  in_range(A, MinMax#minmax.min, MinMax#minmax.max).
+  in_range(A, ?MinMax#minmax.min, ?MinMax#minmax.max).
 
 en_point_check(DiffY) ->
   case DiffY == -1 of
