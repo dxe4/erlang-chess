@@ -1,9 +1,15 @@
-language: 
-	erlang
+language:
+  - erlang
+  
 script: 
-	"rebar compile && rebar eunit"
+  - "rebar compile && rebar eunit"
+
 notifications:
-  recipients:
-    - papaloizouc@gmail.com
+  email:
+    recipients:
+      - papaloizouc@gmail.com
+    on_success: change
+    on_failure: always
+  
 otp_release:
   - 17.0
