@@ -13,8 +13,10 @@
   safe_divide/2, slope/2, line_formula/2,
   in_range/3, in_range/1
 ]).
+
 -record(minmax, {min = 0, max = 8}).
 -define(MinMax, #minmax{}).
+
 
 diff(A, B, elm) ->
   case elm of
