@@ -10,6 +10,4 @@ notifications:
       - papaloizouc@gmail.com
     on_success: change
     on_failure: always
-  
-otp_release:
-  - 17.0
+
