@@ -1,2 +1,5 @@
 .idea
 *.beam
+/ebin/
+.project
+.settings/

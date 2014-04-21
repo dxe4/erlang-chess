@@ -7,7 +7,6 @@
 %%% Created : 20. Apr 2014 01:42
 %%%-------------------------------------------------------------------
 -module(rules).
--author("foobar").
 
 %% API
 -export([
@@ -56,9 +55,7 @@ in_range(N, Min, Max) when is_integer(N) ->
 
 in_range(A, Min, Max) ->
   {X, Y} = A,
-  H = in_range(X, Min, Max),
-  T = in_range(Y, Min, Max),
-  H and T.
+  in_range(X, Min, Max) and in_range(Y, Min, Max).
 
 in_range(A) ->
   in_range(A, ?MinMax#minmax.min, ?MinMax#minmax.max).
@@ -68,3 +65,6 @@ end_point_check(DiffY) ->
     true -> fun(Move, End) -> Move =< End end;
     false -> fun(Move, End) -> Move >= End end
   end.
+
+make_game() ->
+  dict:new().
