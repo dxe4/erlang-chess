@@ -2,7 +2,7 @@
 %%% @author foobar
 %%% @copyright (C) 2014, <COMPANY>
 %%% @doc
-%%% A= start, B= end, hd(A) = X, tl(A) = Y
+%%% A= start, B= end
 %%% @end
 %%% Created : 20. Apr 2014 01:42
 %%%-------------------------------------------------------------------
@@ -38,10 +38,10 @@ line_formula(A, B) ->
   Slope = slope(A, B),
   {B_X, B_Y} = B,
   case Slope == -999 of
-    true -> {vertical, fun(StartX) ->
-      StartX == element(1, B) end};
-    false -> {horizontal, fun(X, Y) ->
-      Y - B_Y == Slope * (X -B_X) end}
+    true -> {vertical,
+      fun(StartX) -> StartX == element(1, B) end};
+    false -> {horizontal,
+      fun(X, Y) -> Y - B_Y == Slope * (X - B_X) end}
   end.
 
 % {Type, Func} = line_formula(5,5)
@@ -63,7 +63,7 @@ in_range(A, Min, Max) ->
 in_range(A) ->
   in_range(A, ?MinMax#minmax.min, ?MinMax#minmax.max).
 
-en_point_check(DiffY) ->
+end_point_check(DiffY) ->
   case DiffY == -1 of
     true -> fun(Move, End) -> Move =< End end;
     false -> fun(Move, End) -> Move >= End end
