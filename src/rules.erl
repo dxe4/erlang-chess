@@ -1,6 +1,6 @@
 %%%-------------------------------------------------------------------
 %%% @author foobar
-%%% @copyright (C) 2014, <COMPANY>
+%%% @copyright (ↄ) 2014, <It works on local LTD>
 %%% @doc
 %%% A= start, B= end
 %%% @end
